@@ -15,6 +15,8 @@
 		3F7E5E311E54C19200C574B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7E5E2F1E54C19200C574B9 /* LaunchScreen.storyboard */; };
 		3F7E5E3C1E54C19200C574B9 /* MoneyManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E3B1E54C19200C574B9 /* MoneyManagerTests.swift */; };
 		3F7E5E471E54C19200C574B9 /* MoneyManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E461E54C19200C574B9 /* MoneyManagerUITests.swift */; };
+		3FF2917D1E5F38F50080BB00 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF2917C1E5F38F50080BB00 /* Category.swift */; };
+		3FF291811E5F396D0080BB00 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291801E5F396D0080BB00 /* Bill.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		3F7E5E421E54C19200C574B9 /* MoneyManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7E5E461E54C19200C574B9 /* MoneyManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyManagerUITests.swift; sourceTree = "<group>"; };
 		3F7E5E481E54C19200C574B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FF2917C1E5F38F50080BB00 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		3FF291801E5F396D0080BB00 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				3F7E5E2F1E54C19200C574B9 /* LaunchScreen.storyboard */,
 				3F7E5E321E54C19200C574B9 /* Info.plist */,
 				3F7E5E2A1E54C19200C574B9 /* MoneyManager.xcdatamodeld */,
+				3FF2917C1E5F38F50080BB00 /* Category.swift */,
+				3FF291801E5F396D0080BB00 /* Bill.swift */,
 			);
 			path = MoneyManager;
 			sourceTree = "<group>";
@@ -263,8 +269,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7E5E261E54C19200C574B9 /* ViewController.swift in Sources */,
+				3FF291811E5F396D0080BB00 /* Bill.swift in Sources */,
 				3F7E5E2C1E54C19200C574B9 /* MoneyManager.xcdatamodeld in Sources */,
 				3F7E5E241E54C19200C574B9 /* AppDelegate.swift in Sources */,
+				3FF2917D1E5F38F50080BB00 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,6 +515,7 @@
 				3F7E5E4D1E54C19200C574B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3F7E5E4E1E54C19200C574B9 /* Build configuration list for PBXNativeTarget "MoneyManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +524,7 @@
 				3F7E5E501E54C19200C574B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3F7E5E511E54C19200C574B9 /* Build configuration list for PBXNativeTarget "MoneyManagerUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +533,7 @@
 				3F7E5E531E54C19200C574B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
