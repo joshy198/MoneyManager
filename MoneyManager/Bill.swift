@@ -8,6 +8,7 @@
 
 import Foundation
 class Bill{
+    
     var BillDate:Date
     var Description=""
     //var image

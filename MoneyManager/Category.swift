@@ -8,10 +8,12 @@
 
 import Foundation
 class Category{
+    
     var Name="";
     var AdditionalInfo="";
     var MoneyAvailable=false;
     var BillList:[Bill]
+    
     init(name:String,additionalInfo:String, moneyAvaiable:Bool){
         self.MoneyAvailable=moneyAvaiable
         self.Name=name
