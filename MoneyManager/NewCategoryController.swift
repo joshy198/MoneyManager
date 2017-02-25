@@ -9,8 +9,3 @@
 import Foundation
 import UIKit
 
-class NewCategory: UIViewController {
-    
-    
-    
-}

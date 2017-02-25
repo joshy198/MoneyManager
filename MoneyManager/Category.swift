@@ -7,17 +7,25 @@
 //
 
 import Foundation
-class Category{
+
+class MoneyCategory{
     
-    var Name="";
-    var AdditionalInfo="";
-    var MoneyAvailable=false;
-    var BillList:[Bill]
+    var name = ""
+    var additionalInfo = ""
+    var moneyAvailable = false
+    var billList: [MoneyBill]
+    var total = 0.00
     
-    init(name:String,additionalInfo:String, moneyAvaiable:Bool){
-        self.MoneyAvailable=moneyAvaiable
-        self.Name=name
-        self.AdditionalInfo=additionalInfo
-        BillList=[Bill]()
+    init(name: String, additionalInfo: String, moneyAvailable: Bool){
+        
+        self.moneyAvailable = moneyAvailable
+        self.name = name
+        self.additionalInfo = additionalInfo
+        self.billList = [MoneyBill]()
+        self.total = 0.00
+    }
+    
+    deinit {
+        
     }
 }

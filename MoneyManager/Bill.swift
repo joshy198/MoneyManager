@@ -7,14 +7,18 @@
 //
 
 import Foundation
-class Bill{
+
+class MoneyBill{
     
-    var BillDate:Date
-    var Description=""
+    var amount = 0.0
+    var billDate: Date
+    var description = ""
     //var image
     
-    init( d:Date, description:String/*, image*/){
-        self.Description=description
-        self.BillDate=d
+    init(amount: Double, date: Date, description: String/*, image*/){
+        
+        self.amount = amount
+        self.description = description
+        self.billDate = date
     }
 }
