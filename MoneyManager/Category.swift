@@ -13,7 +13,7 @@ class MoneyCategory{
     var name = ""
     var additionalInfo = ""
     var moneyAvailable = false
-    var billList: [MoneyBill]
+    var billList = [MoneyBill]()
     var total = 0.00
     
     init(name: String, additionalInfo: String, moneyAvailable: Bool){

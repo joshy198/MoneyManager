@@ -12,13 +12,13 @@ class MoneyBill{
     
     var amount = 0.0
     var billDate: Date
-    var description = ""
+    var name = ""
     //var image
     
-    init(amount: Double, date: Date, description: String/*, image*/){
+    init(amount: Double, name: String, date: Date /*, image*/){
         
         self.amount = amount
-        self.description = description
+        self.name = name
         self.billDate = date
     }
 }

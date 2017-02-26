@@ -9,25 +9,36 @@
 import Foundation
 import UIKit
 
+// Local variable to store categories
 var categories = [MoneyCategory]()
 
+var selectedRow = 0
+
+/**
+ * Custom Cell for Category overview
+ *
+ */
 class CategoryCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
 }
 
+/**
+ * Displaying category overview and money overview
+ *
+ */
 class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var categoryTable: UITableView!
     @IBOutlet weak var moneyAvailable: UILabel!
     @IBOutlet weak var moneyTotal: UILabel!
     
-    var selectedRow = 0
+    // Local variable to store selected row value
+    //var selectedRow = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationItem.title = "Overview"
         categoryTable.dataSource = self
         categoryTable.delegate = self
     }
@@ -59,42 +70,70 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
             }
         }
         
+        // Actual money label values
         moneyAvailable.text = "€ " + String(format: "%.2f", moneyAvailableValue)
         moneyTotal.text = "€ " + String(format: "%.2f", moneyTotalValue)
+        
+        if moneyAvailableValue < 0.00 {
+            moneyAvailable.textColor = UIColor.red
+        }
+        else if moneyAvailableValue == 0.00 {
+            moneyAvailable.textColor = UIColor.black
+        }
+        else {
+            moneyAvailable.textColor = UIColor.green
+        }
+        
+        if moneyTotalValue < 0.00 {
+            moneyTotal.textColor = UIColor.red
+        }
+        else if moneyTotalValue == 0.00 {
+            moneyTotal.textColor = UIColor.black
+        }
+        else {
+            moneyTotal.textColor = UIColor.green
+        }
     }
     
+    // TableView method to pick cell height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
         
     }
     
+    // TableView method to return cell for table
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = categoryTable.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-        //cell.textLabel?.text = categories[indexPath.row].name
+
+        // Use custom cell's labels
         cell.nameLabel.text = categories[indexPath.row].name
         cell.valueLabel.text = "€ " + String(format: "%.2f", categories[indexPath.row].total)
+        
+        // Coloring text depening on balance
         if categories[indexPath.row].total < 0.00 {
             cell.valueLabel.textColor = UIColor.red
         }
-        if categories[indexPath.row].total == 0.00{
+        else if categories[indexPath.row].total == 0.00{
             cell.valueLabel.textColor = UIColor.black
         }
-        else {
+        else /*categories[indexPath.row].total > 0.00*/ {
             cell.valueLabel.textColor = UIColor.green
         }
         return cell
     }
     
+    // TableView method to return number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
     
+    // TableView method to enable swipe to delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         
         if editingStyle == .delete {
             
-            //space for core data stuff
+            //space for core data stuff - remove from core data
             
             categories.remove(at: indexPath.row)
         }
@@ -103,10 +142,12 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         
     }
     
+    // TableView method to pick sections in table
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    // TableView method to edit header in table
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let title: UILabel = UILabel()
         
@@ -118,16 +159,21 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         return title
     }
     
+    // TableView method to perform action when item is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         categoryTable.deselectRow(at: indexPath, animated: true)
         let row = indexPath.row
         selectedRow = row
         
+        // Call CategoryDetail view
         self.performSegue(withIdentifier: "CategoryDetail", sender: self)
     }
     
+    // Performs actions before segue is executed
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Pass chosen category when showing CategoryDetail view
         if segue.identifier == "CategoryDetail" {
             
             let view = segue.destination as! CategoryDetail
@@ -139,17 +185,23 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
+    // Rewind segue destination
     @IBAction func returnToOverview(unwinder: UIStoryboardSegue) {
         
     }
 }
 
+/**
+ * Adding new categories to overview
+ *
+ */
 class NewCategory: UIViewController {
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var available: UISwitch!
     @IBOutlet weak var detailsField: UITextField!
     
+    // Saving item new category to list if filled in correctly
     @IBAction func saveItem(_ sender: Any) {
         
         if nameField.text != "" {
@@ -157,25 +209,159 @@ class NewCategory: UIViewController {
             categories.append(MoneyCategory(name: nameField.text!, additionalInfo: detailsField.text!, moneyAvailable: available.isOn) )
         }
         
+        // rewind segue to overview
         self.performSegue(withIdentifier: "returnToOverview", sender: self)
     }
     
-    override func viewDidLoad() {
-        
-        //navigationItem.title = "New Category"
-    }
 }
 
-class CategoryDetail: UIViewController {
+class CategoryDetailCell: UITableViewCell {
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
+}
+
+/**
+ * Bill overview for current category
+ *
+ */
+class CategoryDetail: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var category: MoneyCategory? = nil
     
     @IBOutlet weak var categoryDetails: UILabel!
+    @IBOutlet weak var billTable: UITableView!
     
     override func viewDidLoad() {
-        navigationItem.title = (category?.name)
-        categoryDetails.text = (category?.additionalInfo)
+        super.viewDidLoad()
+        billTable.dataSource = self
+        billTable.delegate = self
         
+        navigationItem.title = category?.name
+        categoryDetails.text = category?.additionalInfo
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        self.billTable.reloadData()
+    }
+    
+    // TableView method to pick cell height
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = billTable.dequeueReusableCell(withIdentifier: "CategoryDetailCell", for: indexPath) as! CategoryDetailCell
+        
+        cell.nameLabel.text = categories[selectedRow].billList[indexPath.row].name
+        cell.valueLabel.text = "€ " + String(format: "%.2f", categories[selectedRow].billList[indexPath.row].amount)
+        
+        // Coloring text depening on balance
+        if categories[selectedRow].billList[indexPath.row].amount < 0.00 {
+            cell.valueLabel.textColor = UIColor.red
+        }
+        else if categories[selectedRow].billList[indexPath.row].amount == 0.00{
+            cell.valueLabel.textColor = UIColor.black
+        }
+        else /*categories[selectedRow].billList[indexPath.row].amount > 0.00*/ {
+            cell.valueLabel.textColor = UIColor.green
+        }
+        return cell
+    }
+    
+    // TableView method to return number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories[selectedRow].billList.count
+    }
+    
+    // TableView method to enable swipe to delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
+        if editingStyle == .delete {
+            
+            //space for core data stuff - remove from core data
+            
+            categories[selectedRow].billList.remove(at: indexPath.row)
+        }
+        
+        viewDidAppear(true)
+        
+    }
+    
+    // TableView method to pick sections in table
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    // TableView method to edit header in table
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let title: UILabel = UILabel()
+        
+        title.text = "Bills"
+        title.textAlignment = NSTextAlignment.center
+        title.backgroundColor = UIColor.yellow
+        title.textColor = UIColor.black
+        
+        return title
+    }
+    
+    // TableView method to perform action when item is selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        billTable.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // Rewind segue destination
+    @IBAction func returnToCategoryDetail (unwinder: UIStoryboardSegue) {
+        
+    }
+    
+}
+
+/**
+ * Adding new bills to categories
+ *
+ */
+class NewBill: UIViewController {
+    
+    @IBOutlet weak var amountField: UITextField!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
+    override func viewDidLoad() {
+        amountField.keyboardType = UIKeyboardType.numberPad
+    }
+    
+    @IBAction func addPhoto (_ sender: Any) {
+        
+        // Implement Camera API here
+    }
+ 
+    @IBAction func saveBill(_ sender: Any) {
+        
+        if amountField.text != "" {
+            
+            if nameField.text != "" {
+                
+                if let value = Double(amountField.text!) {
+                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date))
+                    
+                    categories[selectedRow].total += value
+                    
+                    self.performSegue(withIdentifier: "returnToCategoryDetail", sender: self)
+                } else {
+                    print("Invalid bill amount value")
+                }
+            } else {
+                print("Invalid bill name")
+            }
+        } else {
+            print ("Invalid bill amount entry")
+        }
     }
     
 }
