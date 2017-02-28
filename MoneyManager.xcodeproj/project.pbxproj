@@ -15,6 +15,9 @@
 		3F7E5E311E54C19200C574B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7E5E2F1E54C19200C574B9 /* LaunchScreen.storyboard */; };
 		3F7E5E3C1E54C19200C574B9 /* MoneyManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E3B1E54C19200C574B9 /* MoneyManagerTests.swift */; };
 		3F7E5E471E54C19200C574B9 /* MoneyManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E461E54C19200C574B9 /* MoneyManagerUITests.swift */; };
+		3FAE4DE71E65CDB900910429 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4DE61E65CDB900910429 /* LaunchController.swift */; };
+		3FAE4DE91E65DFB300910429 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4DE81E65DFB300910429 /* KeychainWrapper.swift */; };
+		3FAE4DEB1E65DFD700910429 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4DEA1E65DFD700910429 /* KeychainItemAccessibility.swift */; };
 		3FF2917D1E5F38F50080BB00 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF2917C1E5F38F50080BB00 /* Category.swift */; };
 		3FF291811E5F396D0080BB00 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291801E5F396D0080BB00 /* Bill.swift */; };
 		3FF291871E5F84360080BB00 /* NewCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291861E5F84360080BB00 /* NewCategoryController.swift */; };
@@ -54,6 +57,9 @@
 		3F7E5E421E54C19200C574B9 /* MoneyManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7E5E461E54C19200C574B9 /* MoneyManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyManagerUITests.swift; sourceTree = "<group>"; };
 		3F7E5E481E54C19200C574B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FAE4DE61E65CDB900910429 /* LaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
+		3FAE4DE81E65DFB300910429 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = /Volumes/MBR_IOS/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<absolute>"; };
+		3FAE4DEA1E65DFD700910429 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainItemAccessibility.swift; path = /Volumes/MBR_IOS/SwiftKeychainWrapper/KeychainItemAccessibility.swift; sourceTree = "<absolute>"; };
 		3FF2917C1E5F38F50080BB00 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3FF291801E5F396D0080BB00 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		3FF291861E5F84360080BB00 /* NewCategoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCategoryController.swift; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 		3F7E5E221E54C19200C574B9 /* MoneyManager */ = {
 			isa = PBXGroup;
 			children = (
+				3FAE4DEC1E65E0F800910429 /* KeychainWrapper */,
 				3FF291821E5F83A20080BB00 /* Objects */,
 				3F7E5E231E54C19200C574B9 /* AppDelegate.swift */,
 				3F7E5E251E54C19200C574B9 /* ViewController.swift */,
@@ -120,6 +127,7 @@
 				3FF2918A1E5F846E0080BB00 /* NewBillController.swift */,
 				3FF291861E5F84360080BB00 /* NewCategoryController.swift */,
 				3FF291881E5F84600080BB00 /* CategoryController.swift */,
+				3FAE4DE61E65CDB900910429 /* LaunchController.swift */,
 			);
 			path = MoneyManager;
 			sourceTree = "<group>";
@@ -140,6 +148,15 @@
 				3F7E5E481E54C19200C574B9 /* Info.plist */,
 			);
 			path = MoneyManagerUITests;
+			sourceTree = "<group>";
+		};
+		3FAE4DEC1E65E0F800910429 /* KeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				3FAE4DE81E65DFB300910429 /* KeychainWrapper.swift */,
+				3FAE4DEA1E65DFD700910429 /* KeychainItemAccessibility.swift */,
+			);
+			name = KeychainWrapper;
 			sourceTree = "<group>";
 		};
 		3FF291821E5F83A20080BB00 /* Objects */ = {
@@ -292,7 +309,10 @@
 				3FF291891E5F84600080BB00 /* CategoryController.swift in Sources */,
 				3F7E5E2C1E54C19200C574B9 /* MoneyManager.xcdatamodeld in Sources */,
 				3F7E5E241E54C19200C574B9 /* AppDelegate.swift in Sources */,
+				3FAE4DE71E65CDB900910429 /* LaunchController.swift in Sources */,
 				3FF2917D1E5F38F50080BB00 /* Category.swift in Sources */,
+				3FAE4DE91E65DFB300910429 /* KeychainWrapper.swift in Sources */,
+				3FAE4DEB1E65DFD700910429 /* KeychainItemAccessibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

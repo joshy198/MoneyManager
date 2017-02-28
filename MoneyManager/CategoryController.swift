@@ -41,6 +41,13 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewDidLoad()
         categoryTable.dataSource = self
         categoryTable.delegate = self
+        
+        for category in categories {
+            
+            category.calc()
+        }
+        
+        //viewDidAppear(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -133,7 +140,7 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         
         if editingStyle == .delete {
             
-            //space for core data stuff - remove from core data
+            //space for core data stuff - remove category from core data
             
             categories.remove(at: indexPath.row)
         }
@@ -201,12 +208,26 @@ class NewCategory: UIViewController {
     @IBOutlet weak var available: UISwitch!
     @IBOutlet weak var detailsField: UITextField!
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     // Saving item new category to list if filled in correctly
     @IBAction func saveItem(_ sender: Any) {
         
         if nameField.text != "" {
             
-            categories.append(MoneyCategory(name: nameField.text!, additionalInfo: detailsField.text!, moneyAvailable: available.isOn) )
+            // LOCAL SAVE
+            
+            let id = UserDefaults.standard.integer(forKey: "categoryCounter")
+            
+            categories.append(MoneyCategory(name: nameField.text!, additionalInfo: detailsField.text!, moneyAvailable: available.isOn, id: id) )
+            
+            UserDefaults.standard.setValue(id + 1, forKey: "categoryCounter")
+            
+            
+            // Space for core data stuff - add category to core data
+            
+            
+            
         }
         
         // rewind segue to overview
@@ -283,9 +304,13 @@ class CategoryDetail: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if editingStyle == .delete {
             
-            //space for core data stuff - remove from core data
+            //space for core data stuff - remove bill from core data
+            
+            
+            categories[selectedRow].total -= categories[selectedRow].billList[indexPath.row].amount
             
             categories[selectedRow].billList.remove(at: indexPath.row)
+            
         }
         
         viewDidAppear(true)
@@ -348,9 +373,17 @@ class NewBill: UIViewController {
             if nameField.text != "" {
                 
                 if let value = Double(amountField.text!) {
-                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date))
+                    
+                    // Space for core data stuff - add bill to core data
+                    
+                    
+                    let id = UserDefaults.standard.integer(forKey: "billCounter")
+                    
+                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date, id: id))
                     
                     categories[selectedRow].total += value
+                        
+                    UserDefaults.standard.setValue(id + 1, forKey: "billCounter")
                     
                     self.performSegue(withIdentifier: "returnToCategoryDetail", sender: self)
                 } else {
