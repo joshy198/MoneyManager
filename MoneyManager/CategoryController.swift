@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 // Local variable to store categories
 var categories = [MoneyCategory]()
@@ -41,6 +42,9 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewDidLoad()
         categoryTable.dataSource = self
         categoryTable.delegate = self
+        
+        categories.removeAll()
+        loadCoredata()
         
         for category in categories {
             
@@ -102,6 +106,36 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
+    func loadCoredata() {
+        print("Loading coredata...")
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName:"Category")
+        request.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(request)
+            if results.count > 0 {
+                for result in results as! [NSManagedObject] {
+                    if let name = result.value(forKey: "name") as? String {
+                        if let info = result.value(forKey: "info") as? String {
+                            if let available = result.value(forKey: "available") as? Bool {
+                                if let id = result.value(forKey: "id") as? Int {
+                                    categories.append(MoneyCategory(name: name, additionalInfo: info, moneyAvailable: available, id: id))
+                                    print("Category \(name) was loaded form coredata")
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("No categories found in coredata!")
+            }
+            
+        } catch {
+            
+        }
+    }
+    
     // TableView method to pick cell height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
@@ -140,9 +174,37 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         
         if editingStyle == .delete {
             
-            //space for core data stuff - remove category from core data
+            let name = categories[indexPath.row].name
+            
+            // LOCAL DELETE
             
             categories.remove(at: indexPath.row)
+            
+            
+            //space for core data stuff - remove category from core data
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            var category: NSManagedObject?
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName:"Category")
+            request.returnsObjectsAsFaults = false
+            do {
+                let results = try context.fetch(request)
+                category = results[indexPath.row] as? NSManagedObject
+            } catch {
+                
+            }
+            context.delete(category!)
+            if (category?.isDeleted)! {
+                do {
+                    try context.save()
+                    print("Category \(name) was permanently removed from coredata")
+                    
+                } catch {
+                    print("Saving corrupted")
+                }
+            }
+            
         }
         
         viewDidAppear(true)
@@ -226,6 +288,24 @@ class NewCategory: UIViewController {
             
             // Space for core data stuff - add category to core data
             
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let newCategory = NSEntityDescription.insertNewObject(forEntityName: "Category", into: context)
+            let category = categories.last
+            
+            newCategory.setValue(category?.name, forKey: "name")
+            newCategory.setValue(category?.additionalInfo, forKey: "info")
+            newCategory.setValue(category?.moneyAvailable, forKey: "available")
+            newCategory.setValue(category?.id, forKey: "id")
+            
+            do {
+                
+                try context.save()
+                print("Category \((category?.name)!) was added to coredata")
+                
+            } catch {
+                
+            }
             
             
         }
