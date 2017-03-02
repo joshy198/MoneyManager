@@ -107,7 +107,11 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func loadCoredata() {
+        
         print("Loading coredata...")
+        
+        // LOAD CATEGORIES FROM COREDATA
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName:"Category")
@@ -134,6 +138,40 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
         } catch {
             
         }
+        
+        // LOAD BILLS FROM COREDATA
+        
+        let request_bill = NSFetchRequest<NSFetchRequestResult>(entityName:"Bill")
+        request_bill.returnsObjectsAsFaults = false
+        do {
+            let results_bill = try context.fetch(request_bill)
+            if results_bill.count > 0 {
+                for result_bill in results_bill as! [NSManagedObject] {
+                    if let name = result_bill.value(forKey: "name") as? String {
+                        if let amount = result_bill.value(forKey: "amount") as? Double {
+                            if let date = result_bill.value(forKey: "date") as? Date {
+                                if let id = result_bill.value(forKey: "id") as? Int {
+                                    if let catId = result_bill.value(forKey: "cat_id") as? Int {
+                                        
+                                        for category in categories {
+                                            if category.id == catId {
+                                                category.billList.append(MoneyBill(amount: amount, name: name, date: date, id: id, catId: catId))
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        } catch {
+            
+        }
+            
+        
     }
     
     // TableView method to pick cell height
@@ -307,11 +345,11 @@ class NewCategory: UIViewController {
                 
             }
             
-            
+            // rewind segue to overview
+            self.performSegue(withIdentifier: "returnToOverview", sender: self)
         }
         
-        // rewind segue to overview
-        self.performSegue(withIdentifier: "returnToOverview", sender: self)
+        
     }
     
 }
@@ -384,12 +422,55 @@ class CategoryDetail: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if editingStyle == .delete {
             
-            //space for core data stuff - remove bill from core data
+            let name = categories[selectedRow].billList[indexPath.row].name
+            let id = categories[selectedRow].billList[indexPath.row].id
             
+            // LOCAL DELETE
             
             categories[selectedRow].total -= categories[selectedRow].billList[indexPath.row].amount
             
             categories[selectedRow].billList.remove(at: indexPath.row)
+            
+            //space for core data stuff - remove bill from core data
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            //var bill: NSManagedObject?
+            //let request = NSFetchRequest<NSFetchRequestResult>(entityName:"Bill")
+            
+            
+            let fetchRequest:NSFetchRequest<Bill> = Bill.fetchRequest()
+            let predicate = NSPredicate(format: "id == %d", id)
+            fetchRequest.predicate = predicate
+            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+            
+            do {
+                try context.execute(deleteRequest)
+            } catch {
+                
+            }
+            do {
+                try context.save()
+                print("Bill \(name) was permanently removed from coredata")
+            } catch {
+                
+            }
+            /*
+            do {
+                let results = try context.fetch(request)
+                bill = results[indexPath.row] as? NSManagedObject
+            } catch {
+                
+            }
+            context.delete(bill!)
+            if (bill?.isDeleted)! {
+                do {
+                    try context.save()
+                    print("Bill \(name) was permanently removed from coredata")
+                } catch {
+                    
+                }
+            }*/
             
         }
         
@@ -454,17 +535,40 @@ class NewBill: UIViewController {
                 
                 if let value = Double(amountField.text!) {
                     
-                    // Space for core data stuff - add bill to core data
-                    
+                    // LOCAL SAVE
                     
                     let id = UserDefaults.standard.integer(forKey: "billCounter")
                     
-                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date, id: id))
+                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date, id: id, catId: categories[selectedRow].id))
                     
                     categories[selectedRow].total += value
                         
                     UserDefaults.standard.setValue(id + 1, forKey: "billCounter")
                     
+                    // Space for core data stuff - add bill to core data
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let context = appDelegate.persistentContainer.viewContext
+                    let newBill = NSEntityDescription.insertNewObject(forEntityName: "Bill", into: context)
+                    let bill = categories[selectedRow].billList.last
+                    
+                    newBill.setValue(bill?.name, forKey: "name")
+                    newBill.setValue(bill?.amount, forKey: "amount")
+                    newBill.setValue(bill?.date, forKey: "date")
+                    newBill.setValue(bill?.id, forKey: "id")
+                    newBill.setValue(bill?.catId, forKey: "cat_id")
+                    
+                    
+                    do {
+                        
+                        try context.save()
+                        print("Bill \((bill?.name)!) was added to coredata")
+                        
+                    } catch {
+                        
+                    }
+                    
+                    // rewind segue to category
                     self.performSegue(withIdentifier: "returnToCategoryDetail", sender: self)
                 } else {
                     print("Invalid bill amount value")

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 class MoneyCategory{
     
@@ -28,6 +30,25 @@ class MoneyCategory{
     }
     
     deinit {
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest:NSFetchRequest<Bill> = Bill.fetchRequest()
+        let predicate = NSPredicate(format: "cat_id == %d", self.id)
+        fetchRequest.predicate = predicate
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+        
+        do {
+            try context.execute(deleteRequest)
+        } catch {
+            
+        }
+        do {
+            try context.save()
+            print("Bills of \(name) were permanently removed from coredata")
+        } catch {
+
+        }
         
         self.billList.removeAll()
         

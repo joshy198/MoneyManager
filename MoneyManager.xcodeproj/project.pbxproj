@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F3A051B1E68B7910011157D /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A05191E68B7910011157D /* KeychainItemAccessibility.swift */; };
+		3F3A051C1E68B7910011157D /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A051A1E68B7910011157D /* KeychainWrapper.swift */; };
 		3F7E5E241E54C19200C574B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E231E54C19200C574B9 /* AppDelegate.swift */; };
 		3F7E5E261E54C19200C574B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E251E54C19200C574B9 /* ViewController.swift */; };
 		3F7E5E291E54C19200C574B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F7E5E271E54C19200C574B9 /* Main.storyboard */; };
@@ -16,8 +18,6 @@
 		3F7E5E3C1E54C19200C574B9 /* MoneyManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E3B1E54C19200C574B9 /* MoneyManagerTests.swift */; };
 		3F7E5E471E54C19200C574B9 /* MoneyManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E461E54C19200C574B9 /* MoneyManagerUITests.swift */; };
 		3FAE4DE71E65CDB900910429 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4DE61E65CDB900910429 /* LaunchController.swift */; };
-		3FAE4DE91E65DFB300910429 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4DE81E65DFB300910429 /* KeychainWrapper.swift */; };
-		3FAE4DEB1E65DFD700910429 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAE4DEA1E65DFD700910429 /* KeychainItemAccessibility.swift */; };
 		3FF2917D1E5F38F50080BB00 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF2917C1E5F38F50080BB00 /* Category.swift */; };
 		3FF291811E5F396D0080BB00 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291801E5F396D0080BB00 /* Bill.swift */; };
 		3FF291871E5F84360080BB00 /* NewCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291861E5F84360080BB00 /* NewCategoryController.swift */; };
@@ -43,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F3A05191E68B7910011157D /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		3F3A051A1E68B7910011157D /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		3F7E5E201E54C19200C574B9 /* MoneyManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F7E5E231E54C19200C574B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F7E5E251E54C19200C574B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,8 +60,6 @@
 		3F7E5E461E54C19200C574B9 /* MoneyManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyManagerUITests.swift; sourceTree = "<group>"; };
 		3F7E5E481E54C19200C574B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FAE4DE61E65CDB900910429 /* LaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
-		3FAE4DE81E65DFB300910429 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = /Volumes/MBR_IOS/SwiftKeychainWrapper/KeychainWrapper.swift; sourceTree = "<absolute>"; };
-		3FAE4DEA1E65DFD700910429 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainItemAccessibility.swift; path = /Volumes/MBR_IOS/SwiftKeychainWrapper/KeychainItemAccessibility.swift; sourceTree = "<absolute>"; };
 		3FF2917C1E5F38F50080BB00 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3FF291801E5F396D0080BB00 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		3FF291861E5F84360080BB00 /* NewCategoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCategoryController.swift; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 		3FAE4DEC1E65E0F800910429 /* KeychainWrapper */ = {
 			isa = PBXGroup;
 			children = (
-				3FAE4DE81E65DFB300910429 /* KeychainWrapper.swift */,
-				3FAE4DEA1E65DFD700910429 /* KeychainItemAccessibility.swift */,
+				3F3A05191E68B7910011157D /* KeychainItemAccessibility.swift */,
+				3F3A051A1E68B7910011157D /* KeychainWrapper.swift */,
 			);
 			name = KeychainWrapper;
 			sourceTree = "<group>";
@@ -305,14 +305,14 @@
 				3F7E5E261E54C19200C574B9 /* ViewController.swift in Sources */,
 				3FF291811E5F396D0080BB00 /* Bill.swift in Sources */,
 				3FF291871E5F84360080BB00 /* NewCategoryController.swift in Sources */,
+				3F3A051C1E68B7910011157D /* KeychainWrapper.swift in Sources */,
+				3F3A051B1E68B7910011157D /* KeychainItemAccessibility.swift in Sources */,
 				3FF2918B1E5F846E0080BB00 /* NewBillController.swift in Sources */,
 				3FF291891E5F84600080BB00 /* CategoryController.swift in Sources */,
 				3F7E5E2C1E54C19200C574B9 /* MoneyManager.xcdatamodeld in Sources */,
 				3F7E5E241E54C19200C574B9 /* AppDelegate.swift in Sources */,
 				3FAE4DE71E65CDB900910429 /* LaunchController.swift in Sources */,
 				3FF2917D1E5F38F50080BB00 /* Category.swift in Sources */,
-				3FAE4DE91E65DFB300910429 /* KeychainWrapper.swift in Sources */,
-				3FAE4DEB1E65DFD700910429 /* KeychainItemAccessibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
