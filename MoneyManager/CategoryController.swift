@@ -367,6 +367,7 @@ class CategoryDetailCell: UITableViewCell {
 class CategoryDetail: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var category: MoneyCategory? = nil
+    var selectedBill = 0
     
     @IBOutlet weak var categoryDetails: UILabel!
     @IBOutlet weak var billTable: UITableView!
@@ -499,6 +500,26 @@ class CategoryDetail: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         billTable.deselectRow(at: indexPath, animated: true)
+        let row = indexPath.row
+        selectedBill = row
+        
+        // Call CategoryDetail view
+        self.performSegue(withIdentifier: "BillDetail", sender: self)
+    }
+    
+    // Performs actions before segue is executed
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Pass chosen category when showing CategoryDetail view
+        if segue.identifier == "BillDetail" {
+            
+            let view = segue.destination as! BillDetail
+            view.bill = categories[selectedRow].billList[selectedBill]
+            print("BillDetail called")
+        }
+        else {
+            print("Other segue called")
+        }
     }
     
     // Rewind segue destination
@@ -579,6 +600,30 @@ class NewBill: UIViewController {
         } else {
             print ("Invalid bill amount entry")
         }
+    }
+    
+}
+
+class BillDetail: UIViewController {
+    
+    var bill: MoneyBill? = nil
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.title = bill?.name
+        nameLabel.text = bill?.name
+        amountLabel.text = "€ " + String(format: "%.2f", (bill?.amount)!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        dateLabel.text = dateFormatter.string(from: (bill?.date)!)
+    
     }
     
 }

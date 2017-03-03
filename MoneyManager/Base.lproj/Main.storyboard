@@ -111,11 +111,101 @@
                     <connections>
                         <outlet property="billTable" destination="6va-aN-FSp" id="XPw-2e-0PO"/>
                         <outlet property="categoryDetails" destination="rsU-rH-FFT" id="MyG-oX-20R"/>
+                        <segue destination="3W9-Xu-Ddg" kind="show" identifier="BillDetail" id="acL-Oe-DdC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W6e-cm-jKR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-922" y="116"/>
+        </scene>
+        <!--Bill name-->
+        <scene sceneID="5b3-rm-oXd">
+            <objects>
+                <viewController id="3W9-Xu-Ddg" customClass="BillDetail" customModule="MoneyManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FnH-Zv-Bg5"/>
+                        <viewControllerLayoutGuide type="bottom" id="JgD-ZY-wni"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g4s-5C-Q9E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gok-8S-FCX">
+                                <rect key="frame" x="21" y="84" width="50" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWM-wf-g7d">
+                                <rect key="frame" x="121" y="84" width="200" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="RDx-WK-uk3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNe-y8-pzv">
+                                <rect key="frame" x="21" y="135" width="65" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pg3-dc-PcB">
+                                <rect key="frame" x="121" y="135" width="200" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubp-Pf-yJJ">
+                                <rect key="frame" x="21" y="186" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZB3-cR-gwk">
+                                <rect key="frame" x="121" y="186" width="200" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="drp-wM-0ro">
+                                <rect key="frame" x="21" y="237" width="333" height="415"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZB3-cR-gwk" firstAttribute="width" secondItem="Pg3-dc-PcB" secondAttribute="width" id="0Bl-31-556"/>
+                            <constraint firstItem="Pg3-dc-PcB" firstAttribute="leading" secondItem="TWM-wf-g7d" secondAttribute="leading" id="14k-rn-YKs"/>
+                            <constraint firstItem="TWM-wf-g7d" firstAttribute="top" secondItem="gok-8S-FCX" secondAttribute="top" id="352-lq-7hQ"/>
+                            <constraint firstItem="drp-wM-0ro" firstAttribute="top" secondItem="ZB3-cR-gwk" secondAttribute="bottom" constant="30" id="78H-Tp-dHr"/>
+                            <constraint firstItem="ZB3-cR-gwk" firstAttribute="top" secondItem="ubp-Pf-yJJ" secondAttribute="top" id="9iF-7w-XjV"/>
+                            <constraint firstItem="ZB3-cR-gwk" firstAttribute="leading" secondItem="Pg3-dc-PcB" secondAttribute="leading" id="GKN-lT-NY4"/>
+                            <constraint firstItem="TWM-wf-g7d" firstAttribute="leading" secondItem="gok-8S-FCX" secondAttribute="trailing" constant="50" id="KZ0-Se-zvr"/>
+                            <constraint firstItem="Pg3-dc-PcB" firstAttribute="width" secondItem="TWM-wf-g7d" secondAttribute="width" id="P40-Aa-EbA"/>
+                            <constraint firstItem="jNe-y8-pzv" firstAttribute="leading" secondItem="gok-8S-FCX" secondAttribute="leading" id="XI0-XN-5Pr"/>
+                            <constraint firstItem="jNe-y8-pzv" firstAttribute="top" secondItem="gok-8S-FCX" secondAttribute="bottom" constant="30" id="YY4-Ej-F5w"/>
+                            <constraint firstItem="ubp-Pf-yJJ" firstAttribute="leading" secondItem="jNe-y8-pzv" secondAttribute="leading" id="aAB-yq-hiJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="drp-wM-0ro" secondAttribute="trailing" constant="5" id="b8t-Fz-nez"/>
+                            <constraint firstItem="gok-8S-FCX" firstAttribute="leading" secondItem="g4s-5C-Q9E" secondAttribute="leadingMargin" constant="5" id="cXv-3M-H4B"/>
+                            <constraint firstItem="JgD-ZY-wni" firstAttribute="top" secondItem="drp-wM-0ro" secondAttribute="bottom" constant="15" id="eqM-SR-ZIf"/>
+                            <constraint firstItem="Pg3-dc-PcB" firstAttribute="top" secondItem="jNe-y8-pzv" secondAttribute="top" id="ixI-Ni-HMJ"/>
+                            <constraint firstItem="ubp-Pf-yJJ" firstAttribute="top" secondItem="jNe-y8-pzv" secondAttribute="bottom" constant="30" id="lrB-Sj-dOd"/>
+                            <constraint firstItem="drp-wM-0ro" firstAttribute="leading" secondItem="ubp-Pf-yJJ" secondAttribute="leading" id="mea-Dh-FeS"/>
+                            <constraint firstItem="gok-8S-FCX" firstAttribute="top" secondItem="FnH-Zv-Bg5" secondAttribute="bottom" constant="20" id="tLr-hZ-1ta"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bill name" id="yad-Y2-4Uf"/>
+                    <connections>
+                        <outlet property="amountLabel" destination="Pg3-dc-PcB" id="cmk-u3-Ce9"/>
+                        <outlet property="dateLabel" destination="ZB3-cR-gwk" id="SxV-Az-xXL"/>
+                        <outlet property="imageView" destination="drp-wM-0ro" id="zMC-xT-jnS"/>
+                        <outlet property="nameLabel" destination="TWM-wf-g7d" id="Pyj-hN-hl9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sja-Ba-g6b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-922" y="863"/>
         </scene>
         <!--New Bill-->
         <scene sceneID="Cps-jy-eC0">
