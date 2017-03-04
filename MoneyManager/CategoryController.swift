@@ -152,12 +152,23 @@ class CategoryOverview: UIViewController, UITableViewDataSource, UITableViewDele
                             if let date = result_bill.value(forKey: "date") as? Date {
                                 if let id = result_bill.value(forKey: "id") as? Int {
                                     if let catId = result_bill.value(forKey: "cat_id") as? Int {
-                                        
-                                        for category in categories {
-                                            if category.id == catId {
-                                                category.billList.append(MoneyBill(amount: amount, name: name, date: date, id: id, catId: catId))
+                                        if let imageData = result_bill.value(forKey: "image") as? NSData{
+                                            if let image = UIImage(data: imageData as Data){
+                                                
+                                                for category in categories {
+                                                    if category.id == catId {
+                                                        category.billList.append(MoneyBill(amount: amount, name: name, date: date, id: id, catId: catId, image: image))
+                                                    }
+                                                }
                                             }
                                         }
+                                        
+                                        /*
+                                        for category in categories {
+                                            if category.id == catId {
+                                                category.billList.append(MoneyBill(amount: amount, name: name, date: date, id: id, catId: catId, image: ))
+                                            }
+                                        }*/
                                         
                                     }
                                 }
@@ -309,6 +320,10 @@ class NewCategory: UIViewController {
     @IBOutlet weak var detailsField: UITextField!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    override func viewDidLoad() {
+        self.hideKeyboard()
+    }
     
     // Saving item new category to list if filled in correctly
     @IBAction func saveItem(_ sender: Any) {
@@ -533,20 +548,69 @@ class CategoryDetail: UIViewController, UITableViewDataSource, UITableViewDelega
  * Adding new bills to categories
  *
  */
-class NewBill: UIViewController {
+class NewBill: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
-        amountField.keyboardType = UIKeyboardType.numberPad
+        amountField.keyboardType = UIKeyboardType.numbersAndPunctuation
+        imageView.image = UIImage(named: "placeholder.png")
+        self.hideKeyboard()
     }
     
-    @IBAction func addPhoto (_ sender: Any) {
+    @IBAction func takePhoto(_ sender: Any) {
         
         // Implement Camera API here
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+            
+        }
     }
+    
+    /*
+    func selectPhoto() {
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+            
+        }
+    }
+    
+    func savePhoto() {
+        
+        let imageData = UIImageJPEGRepresentation(imageView.image!, 0.6)
+        let compressedJPEGImage = UIImage(data: imageData!)
+        UIImageWriteToSavedPhotosAlbum(compressedJPEGImage!, nil, nil, nil)
+        saveNotice()
+        
+    }*/
+    
+ 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        
+        imageView.image = image
+        self.dismiss(animated: true, completion: nil);
+    }
+    
+    /*
+    func saveNotice() {
+        let alertController = UIAlertController(title: "Image saved!", message: "Your picture was successfully saved.", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
+    }*/
  
     @IBAction func saveBill(_ sender: Any) {
         
@@ -560,10 +624,10 @@ class NewBill: UIViewController {
                     
                     let id = UserDefaults.standard.integer(forKey: "billCounter")
                     
-                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date, id: id, catId: categories[selectedRow].id))
+                    categories[selectedRow].billList.append(MoneyBill(amount: value, name: nameField.text!, date: datePicker.date, id: id, catId: categories[selectedRow].id, image: imageView.image!))
                     
                     categories[selectedRow].total += value
-                        
+                    
                     UserDefaults.standard.setValue(id + 1, forKey: "billCounter")
                     
                     // Space for core data stuff - add bill to core data
@@ -578,6 +642,9 @@ class NewBill: UIViewController {
                     newBill.setValue(bill?.date, forKey: "date")
                     newBill.setValue(bill?.id, forKey: "id")
                     newBill.setValue(bill?.catId, forKey: "cat_id")
+                    let img = bill?.image
+                    let imgData = UIImageJPEGRepresentation(img!, 1)
+                    newBill.setValue(imgData, forKey: "image")
                     
                     
                     do {
@@ -623,7 +690,20 @@ class BillDetail: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
         dateLabel.text = dateFormatter.string(from: (bill?.date)!)
+        imageView.image = bill?.image
     
     }
     
+}
+
+extension UIViewController {
+    
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

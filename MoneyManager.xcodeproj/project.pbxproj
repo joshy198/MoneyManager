@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F1D733E1E6B3E10006E0AD3 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1D733D1E6B3E10006E0AD3 /* placeholder.png */; };
 		3F3A051B1E68B7910011157D /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A05191E68B7910011157D /* KeychainItemAccessibility.swift */; };
 		3F3A051C1E68B7910011157D /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3A051A1E68B7910011157D /* KeychainWrapper.swift */; };
 		3F7E5E241E54C19200C574B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E5E231E54C19200C574B9 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F1D733D1E6B3E10006E0AD3 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		3F3A05191E68B7910011157D /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		3F3A051A1E68B7910011157D /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		3F7E5E201E54C19200C574B9 /* MoneyManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F1D733C1E6B3E02006E0AD3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3F1D733D1E6B3E10006E0AD3 /* placeholder.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		3F7E5E171E54C19200C574B9 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 		3F7E5E221E54C19200C574B9 /* MoneyManager */ = {
 			isa = PBXGroup;
 			children = (
+				3F1D733C1E6B3E02006E0AD3 /* Images */,
 				3FAE4DEC1E65E0F800910429 /* KeychainWrapper */,
 				3FF291821E5F83A20080BB00 /* Objects */,
 				3F7E5E231E54C19200C574B9 /* AppDelegate.swift */,
@@ -236,6 +247,7 @@
 				TargetAttributes = {
 					3F7E5E1F1E54C19200C574B9 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = X9758646YB;
 						ProvisioningStyle = Automatic;
 					};
 					3F7E5E361E54C19200C574B9 = {
@@ -276,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7E5E311E54C19200C574B9 /* LaunchScreen.storyboard in Resources */,
+				3F1D733E1E6B3E10006E0AD3 /* placeholder.png in Resources */,
 				3F7E5E2E1E54C19200C574B9 /* Assets.xcassets in Resources */,
 				3F7E5E291E54C19200C574B9 /* Main.storyboard in Resources */,
 			);
@@ -462,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X9758646YB;
 				INFOPLIST_FILE = MoneyManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = at.mayrh.breit.MoneyManager;
@@ -474,6 +488,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = X9758646YB;
 				INFOPLIST_FILE = MoneyManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = at.mayrh.breit.MoneyManager;

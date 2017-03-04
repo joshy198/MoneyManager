@@ -27,6 +27,10 @@ class MoneyCategory{
         self.billList = [MoneyBill]()
         self.total = 0.00
         self.id = id
+        
+        if self.additionalInfo == "" {
+            self.additionalInfo = "no description available"
+        }
     }
     
     deinit {
