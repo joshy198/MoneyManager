@@ -24,6 +24,7 @@
 		3FF291871E5F84360080BB00 /* NewCategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291861E5F84360080BB00 /* NewCategoryController.swift */; };
 		3FF291891E5F84600080BB00 /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF291881E5F84600080BB00 /* CategoryController.swift */; };
 		3FF2918B1E5F846E0080BB00 /* NewBillController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF2918A1E5F846E0080BB00 /* NewBillController.swift */; };
+		3FF71E431E6C47C000AA330A /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FF71E421E6C47C000AA330A /* preview.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		3FF291861E5F84360080BB00 /* NewCategoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCategoryController.swift; sourceTree = "<group>"; };
 		3FF291881E5F84600080BB00 /* CategoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
 		3FF2918A1E5F846E0080BB00 /* NewBillController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBillController.swift; sourceTree = "<group>"; };
+		3FF71E421E6C47C000AA330A /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		3F1D733C1E6B3E02006E0AD3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3FF71E421E6C47C000AA330A /* preview.png */,
 				3F1D733D1E6B3E10006E0AD3 /* placeholder.png */,
 			);
 			name = Images;
@@ -291,6 +294,7 @@
 				3F1D733E1E6B3E10006E0AD3 /* placeholder.png in Resources */,
 				3F7E5E2E1E54C19200C574B9 /* Assets.xcassets in Resources */,
 				3F7E5E291E54C19200C574B9 /* Main.storyboard in Resources */,
+				3FF71E431E6C47C000AA330A /* preview.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
